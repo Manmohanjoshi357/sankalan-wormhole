@@ -2,100 +2,95 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>SANKALAN — Beyond the Event Horizon</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@300;400;600&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: #000; overflow: hidden; width: 100vw; height: 100vh; }
-canvas { display: block; position: absolute; top: 0; left: 0; }
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html, body { width:100%; height:100%; overflow:hidden; background:#000; }
+canvas { display:block; position:absolute; top:0; left:0; width:100%; height:100%; }
+
 .overlay {
-  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  pointer-events: none;
+  position:absolute; top:0; left:0; width:100%; height:100%;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding: 1.5rem;
+  pointer-events:none;
 }
 .pre-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: clamp(0.65rem, 1.2vw, 0.9rem);
-  letter-spacing: 0.55em;
-  color: rgba(180, 210, 255, 0.5);
-  text-transform: uppercase;
-  margin-bottom: 1.2rem;
-  opacity: 0;
-  animation: fadeUp 2s ease 0.5s forwards;
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size: clamp(0.5rem, 2.5vw, 0.9rem);
+  letter-spacing: clamp(0.15em, 1vw, 0.55em);
+  color:rgba(180,210,255,0.5);
+  text-transform:uppercase;
+  margin-bottom: clamp(0.5rem, 2vw, 1.2rem);
+  text-align:center;
+  opacity:0;
+  animation:fadeUp 2s ease 0.5s forwards;
 }
 .title {
-  font-family: 'Cinzel', serif;
-  font-size: clamp(4rem, 12vw, 11rem);
-  font-weight: 300;
-  letter-spacing: 0.25em;
-  color: #fff;
-  text-transform: uppercase;
-  text-shadow:
-    0 0 30px rgba(120, 180, 255, 0.9),
-    0 0 80px rgba(100, 160, 255, 0.5),
-    0 0 160px rgba(80, 140, 255, 0.2);
-  opacity: 0;
-  animation: fadeUp 2s ease 0.8s forwards;
-  position: relative;
-}
-.title::after {
-  content: 'SANKALAN';
-  position: absolute; top: 0; left: 0; width: 100%;
-  color: transparent;
-  -webkit-text-stroke: 0.5px rgba(150, 200, 255, 0.3);
-  filter: blur(8px);
+  font-family:'Cinzel',serif;
+  font-size: clamp(2.8rem, 16vw, 11rem);
+  font-weight:300;
+  letter-spacing: clamp(0.1em, 2vw, 0.25em);
+  color:#fff;
+  text-transform:uppercase;
+  text-align:center;
+  text-shadow: 0 0 30px rgba(120,180,255,0.9), 0 0 80px rgba(100,160,255,0.5), 0 0 160px rgba(80,140,255,0.2);
+  opacity:0;
+  animation:fadeUp 2s ease 0.8s forwards;
+  line-height:1;
 }
 .divider {
-  width: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(150,200,255,0.5), transparent);
-  margin: 1.5rem auto;
-  opacity: 0;
-  animation: expandLine 1.5s ease 1.5s forwards;
+  width:0; height:1px;
+  background:linear-gradient(90deg,transparent,rgba(150,200,255,0.5),transparent);
+  margin: clamp(0.8rem, 2.5vw, 1.5rem) auto;
+  opacity:0;
+  animation:expandLine 1.5s ease 1.5s forwards;
 }
 .tagline {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: clamp(1rem, 2.5vw, 1.8rem);
-  font-weight: 300;
-  letter-spacing: 0.2em;
-  color: rgba(180, 215, 255, 0.75);
-  text-align: center;
-  opacity: 0;
-  animation: fadeUp 2s ease 1.8s forwards;
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size: clamp(0.75rem, 3.5vw, 1.8rem);
+  font-weight:300;
+  letter-spacing: clamp(0.06em, 1vw, 0.2em);
+  color:rgba(180,215,255,0.75);
+  text-align:center;
+  opacity:0;
+  animation:fadeUp 2s ease 1.8s forwards;
+  padding: 0 0.5rem;
 }
 .sub-tag {
-  font-family: 'Cinzel', serif;
-  font-size: clamp(0.5rem, 0.9vw, 0.7rem);
-  letter-spacing: 0.5em;
-  color: rgba(120, 170, 255, 0.35);
-  text-transform: uppercase;
-  margin-top: 1rem;
-  opacity: 0;
-  animation: fadeUp 2s ease 2.2s forwards;
+  font-family:'Cinzel',serif;
+  font-size: clamp(0.42rem, 1.8vw, 0.7rem);
+  letter-spacing: clamp(0.12em, 1.5vw, 0.5em);
+  color:rgba(120,170,255,0.35);
+  text-transform:uppercase;
+  margin-top: clamp(0.5rem, 1.5vw, 1rem);
+  text-align:center;
+  opacity:0;
+  animation:fadeUp 2s ease 2.2s forwards;
 }
-.corner-tl, .corner-tr, .corner-bl, .corner-br {
-  position: absolute;
-  width: 30px; height: 30px;
-  opacity: 0;
-  animation: fadeUp 2s ease 2.5s forwards;
+.corner-tl,.corner-tr,.corner-bl,.corner-br {
+  position:absolute;
+  width:clamp(14px,3vw,28px); height:clamp(14px,3vw,28px);
+  opacity:0; animation:fadeUp 2s ease 2.5s forwards;
 }
-.corner-tl { top: 2rem; left: 2rem; border-top: 1px solid rgba(150,200,255,0.25); border-left: 1px solid rgba(150,200,255,0.25); }
-.corner-tr { top: 2rem; right: 2rem; border-top: 1px solid rgba(150,200,255,0.25); border-right: 1px solid rgba(150,200,255,0.25); }
-.corner-bl { bottom: 2rem; left: 2rem; border-bottom: 1px solid rgba(150,200,255,0.25); border-left: 1px solid rgba(150,200,255,0.25); }
-.corner-br { bottom: 2rem; right: 2rem; border-bottom: 1px solid rgba(150,200,255,0.25); border-right: 1px solid rgba(150,200,255,0.25); }
+.corner-tl{top:clamp(0.8rem,2.5vw,2rem);left:clamp(0.8rem,2.5vw,2rem);border-top:1px solid rgba(150,200,255,0.22);border-left:1px solid rgba(150,200,255,0.22);}
+.corner-tr{top:clamp(0.8rem,2.5vw,2rem);right:clamp(0.8rem,2.5vw,2rem);border-top:1px solid rgba(150,200,255,0.22);border-right:1px solid rgba(150,200,255,0.22);}
+.corner-bl{bottom:clamp(0.8rem,2.5vw,2rem);left:clamp(0.8rem,2.5vw,2rem);border-bottom:1px solid rgba(150,200,255,0.22);border-left:1px solid rgba(150,200,255,0.22);}
+.corner-br{bottom:clamp(0.8rem,2.5vw,2rem);right:clamp(0.8rem,2.5vw,2rem);border-bottom:1px solid rgba(150,200,255,0.22);border-right:1px solid rgba(150,200,255,0.22);}
 .coord {
-  position: absolute; bottom: 2.2rem; left: 50%; transform: translateX(-50%);
-  font-family: 'Cinzel', serif;
-  font-size: 0.55rem; letter-spacing: 0.3em;
-  color: rgba(120, 170, 255, 0.25);
-  text-transform: uppercase;
-  opacity: 0;
-  animation: fadeUp 2s ease 2.8s forwards;
+  position:absolute; bottom:clamp(0.8rem,2.5vw,2rem); left:50%; transform:translateX(-50%);
+  font-family:'Cinzel',serif;
+  font-size:clamp(0.38rem,1.2vw,0.55rem);
+  letter-spacing:clamp(0.08em,0.8vw,0.3em);
+  color:rgba(120,170,255,0.22);
+  text-transform:uppercase; white-space:nowrap;
+  opacity:0; animation:fadeUp 2s ease 2.8s forwards;
 }
-@keyframes fadeUp { from { opacity:0; transform: translateY(16px); } to { opacity:1; transform: none; } }
-@keyframes expandLine { from { opacity:0; width:0; } to { opacity:1; width: min(400px, 40vw); } }
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+@keyframes expandLine{from{opacity:0;width:0;}to{opacity:1;width:min(280px,50vw);}}
 </style>
 </head>
 <body>
@@ -104,105 +99,92 @@ canvas { display: block; position: absolute; top: 0; left: 0; }
   <div class="pre-title">Tech Hackathon · Interstellar Edition</div>
   <div class="title">Sankalan</div>
   <div class="divider"></div>
-  <div class="tagline">Where Stars Align & Code Ignites</div>
+  <div class="tagline">Where Stars Align &amp; Code Ignites</div>
   <div class="sub-tag">Beyond the Event Horizon</div>
 </div>
-<div class="corner-tl"></div>
-<div class="corner-tr"></div>
-<div class="corner-bl"></div>
-<div class="corner-br"></div>
-<div class="coord">Coordinates: 05h 35m 17s · −05° 23′ 28″ · NGC 1976</div>
+<div class="corner-tl"></div><div class="corner-tr"></div>
+<div class="corner-bl"></div><div class="corner-br"></div>
+<div class="coord">05h 35m 17s · −05° 23′ 28″ · NGC 1976</div>
 <script>
-const canvas = document.getElementById('c');
-const ctx = canvas.getContext('2d');
-let W, H, cx, cy, t = 0, stars = [], dust = [];
+const canvas=document.getElementById('c');
+const ctx=canvas.getContext('2d');
+let W,H,cx,cy,t=0,stars=[],dust=[];
 
-function resize() {
-  W = canvas.width = window.innerWidth;
-  H = canvas.height = window.innerHeight;
-  cx = W/2; cy = H/2;
-  init();
+function resize(){
+  W=canvas.width=window.innerWidth;
+  H=canvas.height=window.innerHeight;
+  cx=W/2;cy=H/2;init();
 }
 
-function init() {
-  stars = Array.from({length: 900}, () => {
-    const angle = Math.random() * Math.PI * 2;
-    const dist = 60 + Math.random() * Math.max(W,H) * 0.85;
-    return { x: cx + Math.cos(angle)*dist, y: cy + Math.sin(angle)*dist,
-      size: Math.random()*1.6+0.2, bright: Math.random(), tw: Math.random()*Math.PI*2, spd: Math.random()*0.25+0.04 };
+function init(){
+  const sc=W<480?420:W<768?600:900;
+  stars=Array.from({length:sc},()=>{
+    const angle=Math.random()*Math.PI*2;
+    const dist=60+Math.random()*Math.max(W,H)*0.85;
+    return{x:cx+Math.cos(angle)*dist,y:cy+Math.sin(angle)*dist,
+      size:Math.random()*1.5+0.2,bright:Math.random(),
+      tw:Math.random()*Math.PI*2,spd:Math.random()*0.25+0.04};
   });
-  dust = Array.from({length: 220}, () => {
-    const a = Math.random()*Math.PI*2, r = (0.12+Math.random()*0.38)*Math.min(W,H)*0.5;
-    return { angle: a, r, size: Math.random()*2+0.4,
-      spd: (Math.random()*0.0025+0.0008)*(Math.random()>0.5?1:-1),
-      op: Math.random()*0.5+0.1,
-      hue: Math.random()>0.5 ? 200+Math.random()*40 : 30+Math.random()*20 };
+  const dc=W<480?90:W<768?150:220;
+  dust=Array.from({length:dc},()=>{
+    const a=Math.random()*Math.PI*2,r=(0.12+Math.random()*0.38)*Math.min(W,H)*0.5;
+    return{angle:a,r,size:Math.random()*1.8+0.3,
+      spd:(Math.random()*0.0025+0.0008)*(Math.random()>0.5?1:-1),
+      op:Math.random()*0.5+0.1,hue:Math.random()>0.5?200+Math.random()*40:30+Math.random()*20};
   });
 }
 
-function draw() {
+function draw(){
   ctx.clearRect(0,0,W,H);
-  // bg
-  const bg = ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(W,H)*0.75);
-  bg.addColorStop(0,'#000008'); bg.addColorStop(0.35,'#000012');
-  bg.addColorStop(0.65,'#000820'); bg.addColorStop(1,'#000000');
-  ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
+  const bg=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(W,H)*0.75);
+  bg.addColorStop(0,'#000008');bg.addColorStop(0.35,'#000012');
+  bg.addColorStop(0.65,'#000820');bg.addColorStop(1,'#000000');
+  ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
 
-  // stars drifting inward
-  stars.forEach(s => {
-    s.tw += 0.018;
-    const tw = 0.65 + 0.35*Math.sin(s.tw);
-    const dx=s.x-cx, dy=s.y-cy, dist=Math.sqrt(dx*dx+dy*dy), ang=Math.atan2(dy,dx);
-    const nd = dist - s.spd*0.25;
-    if (nd < 45) { const na=Math.random()*Math.PI*2, nd2=Math.max(W,H)*0.82; s.x=cx+Math.cos(na)*nd2; s.y=cy+Math.sin(na)*nd2; }
-    else { s.x=cx+Math.cos(ang)*nd; s.y=cy+Math.sin(ang)*nd; }
-    ctx.beginPath(); ctx.arc(s.x,s.y,s.size*tw,0,Math.PI*2);
-    ctx.fillStyle=`rgba(200,220,255,${s.bright*tw*0.85})`; ctx.fill();
+  stars.forEach(s=>{
+    s.tw+=0.018;const tw=0.65+0.35*Math.sin(s.tw);
+    const dx=s.x-cx,dy=s.y-cy,dist=Math.sqrt(dx*dx+dy*dy),ang=Math.atan2(dy,dx);
+    const nd=dist-s.spd*0.25;
+    if(nd<45){const na=Math.random()*Math.PI*2,nd2=Math.max(W,H)*0.82;s.x=cx+Math.cos(na)*nd2;s.y=cy+Math.sin(na)*nd2;}
+    else{s.x=cx+Math.cos(ang)*nd;s.y=cy+Math.sin(ang)*nd;}
+    ctx.beginPath();ctx.arc(s.x,s.y,s.size*tw,0,Math.PI*2);
+    ctx.fillStyle=`rgba(200,220,255,${s.bright*tw*0.85})`;ctx.fill();
   });
 
-  // accretion disk
-  const bR = Math.min(W,H)*0.17, oR = bR*2.9;
-  for (let i=0;i<65;i++) {
-    const p=i/65, r=bR*0.85+p*(oR-bR*0.85);
-    const spd=0.0007/(p*0.5+0.28);
-    const ang=t*spd*(i%2===0?1:-0.65)+i*0.14;
+  const bR=Math.min(W,H)*0.17,oR=bR*2.9;
+  for(let i=0;i<65;i++){
+    const p=i/65,r=bR*0.85+p*(oR-bR*0.85);
+    const ang=t*(0.0007/(p*0.5+0.28))*(i%2===0?1:-0.65)+i*0.14;
     const br=Math.max(0,1-p*1.05)*(0.55+0.45*Math.sin(ang*3+t));
     const hue=p<0.3?38+p*110:148+(p-0.3)*210;
-    const sat=78+22*Math.sin(p*Math.PI), lt=48+32*Math.sin(ang+t*1.8);
-    ctx.beginPath(); ctx.ellipse(cx,cy,r,r*0.16,0,0,Math.PI*2);
-    ctx.strokeStyle=`hsla(${hue},${sat}%,${lt}%,${br*0.14})`; ctx.lineWidth=(oR-bR*0.85)/65+0.5; ctx.stroke();
+    ctx.beginPath();ctx.ellipse(cx,cy,r,r*0.16,0,0,Math.PI*2);
+    ctx.strokeStyle=`hsla(${hue},${78+22*Math.sin(p*Math.PI)}%,${48+32*Math.sin(ang+t*1.8)}%,${br*0.14})`;
+    ctx.lineWidth=(oR-bR*0.85)/65+0.5;ctx.stroke();
   }
-
-  // wormhole rings
-  for (let i=20;i>=0;i--) {
-    const pr=i/20, r=bR*(1-pr*0.86);
-    const ld=Math.sin(pr*Math.PI)*0.14;
-    ctx.beginPath(); ctx.ellipse(cx,cy,r*(1+ld),r*(1-ld*0.3),0,0,Math.PI*2);
-    const hue=198+pr*45+Math.sin(t*0.45+i*0.28)*18;
-    ctx.strokeStyle=`hsla(${hue},68%,65%,${pr*0.22+0.04})`;
-    ctx.lineWidth=1+(1-pr)*2.2; ctx.stroke();
+  for(let i=20;i>=0;i--){
+    const pr=i/20,r=bR*(1-pr*0.86),ld=Math.sin(pr*Math.PI)*0.14;
+    ctx.beginPath();ctx.ellipse(cx,cy,r*(1+ld),r*(1-ld*0.3),0,0,Math.PI*2);
+    ctx.strokeStyle=`hsla(${198+pr*45+Math.sin(t*0.45+i*0.28)*18},68%,65%,${pr*0.22+0.04})`;
+    ctx.lineWidth=1+(1-pr)*2.2;ctx.stroke();
   }
-
-  // core shadow
   const core=ctx.createRadialGradient(cx,cy,0,cx,cy,bR*0.52);
-  core.addColorStop(0,'rgba(0,0,0,0.97)'); core.addColorStop(0.5,'rgba(0,4,18,0.92)');
-  core.addColorStop(0.8,'rgba(0,8,35,0.7)'); core.addColorStop(1,'rgba(0,0,0,0)');
-  ctx.beginPath(); ctx.ellipse(cx,cy,bR*0.54,bR*0.54,0,0,Math.PI*2);
-  ctx.fillStyle=core; ctx.fill();
+  core.addColorStop(0,'rgba(0,0,0,0.97)');core.addColorStop(0.5,'rgba(0,4,18,0.92)');
+  core.addColorStop(0.8,'rgba(0,8,35,0.7)');core.addColorStop(1,'rgba(0,0,0,0)');
+  ctx.beginPath();ctx.ellipse(cx,cy,bR*0.54,bR*0.54,0,0,Math.PI*2);
+  ctx.fillStyle=core;ctx.fill();
 
-  // dust
-  dust.forEach(p => {
+  dust.forEach(p=>{
     p.angle+=p.spd;
-    const x=cx+Math.cos(p.angle)*p.r, y=cy+Math.sin(p.angle)*p.r*0.19;
-    if (Math.sqrt((x-cx)**2+(y-cy)**2)<bR*0.58) return;
-    ctx.beginPath(); ctx.arc(x,y,p.size,0,Math.PI*2);
-    ctx.globalAlpha=p.op; ctx.fillStyle=`hsl(${p.hue},80%,70%)`; ctx.fill(); ctx.globalAlpha=1;
+    const x=cx+Math.cos(p.angle)*p.r,y=cy+Math.sin(p.angle)*p.r*0.19;
+    if(Math.sqrt((x-cx)**2+(y-cy)**2)<bR*0.58)return;
+    ctx.beginPath();ctx.arc(x,y,p.size,0,Math.PI*2);
+    ctx.globalAlpha=p.op;ctx.fillStyle=`hsl(${p.hue},80%,70%)`;ctx.fill();ctx.globalAlpha=1;
   });
-
-  t++; requestAnimationFrame(draw);
+  t++;requestAnimationFrame(draw);
 }
-window.addEventListener('resize', resize);
-resize(); draw();
+window.addEventListener('resize',resize);
+window.addEventListener('orientationchange',()=>setTimeout(resize,200));
+resize();draw();
 </script>
 </body>
 </html>
